@@ -8,6 +8,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
+    "@recogito/recogito-js": "1.4.0",
     "parcel-bundler": "^1.6.1",
     "zingtouch": "1.0.6"
   },

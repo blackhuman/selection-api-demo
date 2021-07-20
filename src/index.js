@@ -1,12 +1,12 @@
-import "./styles.css";
-import ZingTouch from "zingtouch";
+import './styles.css';
+import ZingTouch from 'zingtouch';
 
 class SelectGesture extends ZingTouch.Gesture {
   constructor(bglayer) {
     super();
     this.bglayer = bglayer;
-    this.ctx = bglayer.getContext("2d");
-    this.ctx.fillStyle = "green";
+    this.ctx = bglayer.getContext('2d');
+    this.ctx.fillStyle = 'green';
     this.selectRange = document.createRange();
     this.previouseRect = null;
   }
@@ -89,21 +89,21 @@ class SelectGesture extends ZingTouch.Gesture {
   end(inputs) {
     let [node, offset] = this.getCaretInfo(inputs);
     this.selectRange.setEnd(node, offset);
-    console.log("string", this.selectRange.toString());
+    console.log('string', this.selectRange.toString());
     this.fillSelectRangeRects();
   }
 }
 
-let app = document.getElementById("app");
-let bglayer = document.createElement("canvas");
-bglayer.id = "bglayer";
+let app = document.getElementById('app');
+let bglayer = document.createElement('canvas');
+bglayer.id = 'bglayer';
 bglayer.width = window.innerWidth;
 bglayer.height = window.innerHeight;
 document.body.appendChild(bglayer);
 let touchRegion = new ZingTouch.Region(app);
 touchRegion.unbind(document.body);
 touchRegion.bind(document.body, new SelectGesture(bglayer), (event) => {
-  console.log("event", event);
+  console.log('event', event);
 });
 
 // let selectRange = document.createRange();
