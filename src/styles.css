@@ -1,0 +1,14 @@
+body {
+  /* position: absolute; */
+  font-family: sans-serif;
+  user-select: none;
+}
+
+#bglayer {
+  position: fixed;
+  z-index: -1;
+  top: 0px;
+  right: 0px;
+  width: 100vw;
+  height: 100vh;
+}
