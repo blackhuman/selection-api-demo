@@ -1,5 +1,7 @@
 import './styles.css';
 import ZingTouch from 'zingtouch';
+import { Recogito } from '@recogito/recogito-js';
+import '@recogito/recogito-js/dist/recogito.min.css';
 
 class SelectGesture extends ZingTouch.Gesture {
   constructor(bglayer) {
@@ -16,18 +18,20 @@ class SelectGesture extends ZingTouch.Gesture {
   }
 
   firstTouchPosition(inputs) {
-    let event = inputs[0].current.originalEvent;
-    if (event instanceof PointerEvent) {
-      return [event.clientX, event.clientY];
-    } else if (event instanceof MouseEvent) {
-      return [event.clientX, event.clientY];
-    } else if (event instanceof TouchEvent) {
-      let touches = event.changedTouches;
-      let touch = touches[0];
-      return [touch.clientX, touch.clientY];
-    } else {
-      return null;
-    }
+    // let event = inputs[0].current.originalEvent;
+    // if (event instanceof PointerEvent) {
+    //   return [event.clientX, event.clientY];
+    // } else if (event instanceof MouseEvent) {
+    //   return [event.clientX, event.clientY];
+    // } else if (event instanceof TouchEvent) {
+    //   let touches = event.changedTouches;
+    //   let touch = touches[0];
+    //   return [touch.clientX, touch.clientY];
+    // } else {
+    //   return null;
+    // }
+    let event = inputs[0].current;
+    return [event.clientX, event.clientY];
   }
 
   getCaretInfo(inputs) {
@@ -76,6 +80,7 @@ class SelectGesture extends ZingTouch.Gesture {
     let [node, offset] = this.getCaretInfo(inputs);
     this.selectRange.setStart(node, offset);
     this.clearContext();
+    return null;
   }
 
   move(inputs) {
@@ -84,13 +89,23 @@ class SelectGesture extends ZingTouch.Gesture {
     this.clearPreviousRect();
     this.previouseRect = this.selectRange.getBoundingClientRect();
     this.fillSelectRangeRects();
+    return null;
   }
 
   end(inputs) {
     let [node, offset] = this.getCaretInfo(inputs);
     this.selectRange.setEnd(node, offset);
     console.log('string', this.selectRange.toString());
-    this.fillSelectRangeRects();
+    this.clearContext();
+    window
+      .getSelection()
+      .setBaseAndExtent(
+        this.selectRange.startContainer,
+        this.selectRange.startOffset,
+        this.selectRange.endContainer,
+        this.selectRange.endOffset
+      );
+    return null;
   }
 }
 
@@ -100,11 +115,17 @@ bglayer.id = 'bglayer';
 bglayer.width = window.innerWidth;
 bglayer.height = window.innerHeight;
 document.body.appendChild(bglayer);
-let touchRegion = new ZingTouch.Region(app);
+let touchRegion = new ZingTouch.Region(app, false, false);
 touchRegion.unbind(document.body);
 touchRegion.bind(document.body, new SelectGesture(bglayer), (event) => {
   console.log('event', event);
 });
+const r = new Recogito({ content: app });
+
+// app.addEventListener('mouseup', (event) => {
+//   console.log('onmouseup');
+//   console.log(event.target);
+// });
 
 // let selectRange = document.createRange();
 
