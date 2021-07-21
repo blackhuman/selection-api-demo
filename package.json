@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@recogito/recogito-js": "1.4.0",
-    "parcel-bundler": "1.12.5",
+    "parcel": "2.0.0-beta.2",
     "zingtouch": "1.0.6"
   },
   "devDependencies": {
