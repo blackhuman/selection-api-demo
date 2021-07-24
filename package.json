@@ -2,18 +2,18 @@
   "name": "selection-api-demo",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
   "scripts": {
     "start": "parcel serve index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build --dist-dir dist/publish index.html"
   },
   "dependencies": {
-    "@recogito/recogito-js": "1.4.0",
+    "@recogito/recogito-js": "npm:@blackhuman/recogito-js@^1.4.3",
     "parcel": "^2.0.0-beta.3.1",
     "zingtouch": "1.0.6"
   },
   "devDependencies": {
-    "@babel/core": "7.2.0"
+    "@babel/core": "7.2.0",
+    "@parcel/transformer-sass": "2.0.0-beta.3.1"
   },
   "resolutions": {
     "@babel/preset-env": "7.13.8"

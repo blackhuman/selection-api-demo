@@ -1,4 +1,6 @@
 node_modules
 .history
 .parcel-cache
+.yalc
 dist
+/*.log

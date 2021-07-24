@@ -109,3 +109,19 @@ touchRegion.bind(document.body, new SelectGesture(bglayer), (event) => {
   console.log('event', event);
 });
 const r = new Recogito({ content: app });
+
+r.on('selectAnnotation', a => {
+  console.log('selected', a);
+});
+
+r.on('createAnnotation', a => {
+  console.log('created', a);
+});
+
+r.on('updateAnnotation', (annotation, previous) => {
+  console.log('updated', previous, 'with', annotation);
+});
+
+r.on('deleteAnnotation', a => {
+  console.log('delete', a);
+});
