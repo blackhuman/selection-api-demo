@@ -4,3 +4,4 @@ node_modules
 .yalc
 dist
 /*.log
+.cache
