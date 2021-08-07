@@ -4,8 +4,7 @@
   "description": "",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build --out-dir dist/publish index.html",
-    "build-js": "parcel build --out-dir dist/publish src/index.js"
+    "build": "parcel build --out-dir dist/publish src/index.js"
   },
   "dependencies": {
     "@recogito/recogito-js": "npm:@blackhuman/recogito-js@^1.4.3",
