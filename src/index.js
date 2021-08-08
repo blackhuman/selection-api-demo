@@ -31,12 +31,13 @@ class SelectGesture extends ZingTouch.Gesture {
       range = document.caretRangeFromPoint(x, y);
       textNode = range.startContainer;
       offset = range.startOffset;
+      return range ? [textNode, offset] : null;
     } else if (document.caretPositionFromPoint) {
       range = document.caretPositionFromPoint(x, y);
       textNode = range.offsetNode;
       offset = range.offset;
+      return range ? [textNode, offset] : null;
     }
-    return [textNode, offset];
   }
 
   fillRect(rect) {
@@ -65,14 +66,19 @@ class SelectGesture extends ZingTouch.Gesture {
   }
 
   start(inputs) {
-    let [node, offset] = this.getCaretInfo(inputs);
+    let caretInfo = this.getCaretInfo(inputs);
+    console.log('caretInfo', caretInfo);
+    if(caretInfo == null) return;
+    let [node, offset] = caretInfo
     this.selectRange.setStart(node, offset);
     this.clearContext();
     return null;
   }
 
   move(inputs) {
-    let [node, offset] = this.getCaretInfo(inputs);
+    let caretInfo = this.getCaretInfo(inputs);
+    if(caretInfo == null) return;
+    let [node, offset] = caretInfo
     this.selectRange.setEnd(node, offset);
     this.clearPreviousRect();
     this.previouseRect = this.selectRange.getBoundingClientRect();
@@ -81,7 +87,9 @@ class SelectGesture extends ZingTouch.Gesture {
   }
 
   end(inputs) {
-    let [node, offset] = this.getCaretInfo(inputs);
+    let caretInfo = this.getCaretInfo(inputs);
+    if(caretInfo == null) return;
+    let [node, offset] = caretInfo
     this.selectRange.setEnd(node, offset);
     console.log('string', this.selectRange.toString());
     this.clearContext();
@@ -97,7 +105,7 @@ class SelectGesture extends ZingTouch.Gesture {
   }
 }
 
-let app = document.getElementById('app');
+let app = document.body;
 let bglayer = document.createElement('canvas');
 bglayer.id = 'bglayer';
 bglayer.width = window.innerWidth;
